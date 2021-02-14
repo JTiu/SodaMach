@@ -13,8 +13,9 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Cola()
         {
-            Name = "Cola";
-            price = 0.50;
+            Name = "Cola"; // no get/set
+
+            Price = 0.50; //has a get/set
         }
 
         //Member Methods (Can Do)

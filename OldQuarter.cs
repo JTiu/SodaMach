@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class OrangeSoda:Can
+    class Quarter:Coin
     {
         //Member Variables (Has A)
 
         //Constructor (Spawner)
-        public OrangeSoda() //constructor
+        public Quarter()
         {
-            Name = "Orange Soda"; //does NOT have a get/set 
-
-            Price = 0.60; //has a get/set
+            Name = "Quarter";
+            value = .25;
+            Console.WriteLine("here is your quarter");
+            Console.ReadLine();
         }
 
         //Member Methods (Can Do)

@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class Quarter:Coin
+    class Quarter : Coin
     {
-        //Member Variables (Has A)
 
-        //Constructor (Spawner)
-        public Quarter()
+        ///Var HAS
+        public Quarter() 
         {
-            Name = "Quarter";
-            value = .25;
+            Name = "Quarter";//Name, no lock on the box
+
+            Worth = .25;//Worth, has a wrench
         }
 
-        //Member Methods (Can Do)
+
     }
 }

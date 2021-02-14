@@ -11,20 +11,12 @@ namespace SodaMachine
         static void Main(string[] args)
         {
 
-            //////////////////Simulation simulation = new Simulation();
-            //////////////////simulation.Simulate();
-
-
-
-
-            //working code that prints coins to counsel
-
-            ////step one instantiate wallet, 
-            Wallet JTsWallet = new Wallet("My coin wallet");
-            //Coin pennyInWallet = new Penny();
-
-            Console.WriteLine(JTsWallet.walletName /*+ " contains a " + pennyInWallet.Name + " with a value of: " + pennyInWallet.Value*/);
+            Console.WriteLine("Program class here, calls a new simulation");
             Console.ReadLine();
+            Simulation simulation = new Simulation();
+                        
+            
+            
         }
     }
 }

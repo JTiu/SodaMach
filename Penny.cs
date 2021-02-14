@@ -9,14 +9,16 @@ namespace SodaMachine
     class Penny:Coin
     {
         //Member Variables (Has A)
-        //// take this out if program runs:::: public string pennyInWallet;
-
+       
         //Constructor (Spawner)
         public Penny()
         {
-            Name = "Shiny Penny";
-            value = .01;
-            //take this out if program runspennyInWallet = "this in a penny in my wallet";
+
+
+            Name = "Penny";//no lock on the box
+
+            Worth = .01;//has a wrench
+
         }
         //Member Methods (Can Do)
     }

@@ -13,8 +13,9 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Nickel()
         {
-            Name = "Nickel";
-            value = .05;
+            Name = "Nickel";//no lock
+
+            Worth = .05;//has a wrench
         }
         //Member Methods (Can Do)
     }

@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    abstract class Can
+    abstract class Can //good, learned about get & set. Private field price has the lock on the box, Public has the wrench = can read. 
     {
-        //Member Variables (Has A)
-        protected double price;
-        public string Name;
 
-        public double Price
-        { 
-            get 
-            {
-                return price;
-            }
+        private double price;//field, has a get/ set, and a lock on the box
+        public string Name;//no lock on this box
+        public double Price //Price has a wrench
+        {
+            get {return price;}//price has a lock on the box
+
+
+            set {this.price = value;}//lock on the box
         }
-        //Constructor (Spawner)
 
-        //Member Methods (Can Do)
+
     }
 }

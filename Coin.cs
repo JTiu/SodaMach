@@ -6,31 +6,20 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class Coin
+    abstract class Coin //Parent
     {
-        //Member Variables (Has A)
-        protected double value;
-        public string Name;
+        public string Name;//control FK to align curly brackets
+        private double worth;//worth has lock on the box
 
-        public Coin()//my constructor
+        public double Worth //Worth has a wrench
         {
+            get { return worth;}//lock on the box
+
+            set {worth = value; }//lock on the box
            
         }
+        
+       
 
-        public double Value
-        {
-            get
-            {
-                return value;
-            }
-
-
-        }
-
-        public double V1 { get; }
-        public string V2 { get; }
-        //Constructor (Spawner)
-
-        //Member Methods (Can Do)
     }
 }

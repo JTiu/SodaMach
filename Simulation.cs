@@ -11,12 +11,17 @@ namespace SodaMachine
         //Member Variables (Has A)
         Customer _customer;
         SodaMachine _sodaMachine;
+        
 
         //Constructor (Spawner)
         public Simulation()
         {
+            Console.WriteLine("Simulation class has Customer & Soda Machine classes");
+            Console.ReadLine();
             _customer = new Customer();
             _sodaMachine = new SodaMachine();
+            
+            
         }
 
         //Member Methods
@@ -28,6 +33,8 @@ namespace SodaMachine
                 _sodaMachine.BeginTransaction(_customer);
                 willProceed = UserInterface.ContinuePrompt("Continue to next transaction?");
                 Console.Clear();
+                Console.WriteLine("Simulate Method caleed here");
+                Console.ReadLine();
             }
            
         }

@@ -13,8 +13,8 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Dime()
         {
-            Name = "Dime";
-            value = .10;
+            Name = "Dime";// no lock on the box
+            Worth = .10;//Worth has a wrench
         }
 
         //Member Methods (Can Do)

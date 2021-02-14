@@ -6,17 +6,20 @@ using System.Threading.Tasks;
 
 namespace SodaMachine
 {
-    class OrangeSoda:Can
+    abstract class Can
     {
         //Member Variables (Has A)
+        protected double price;
+        public string Name;
 
-        //Constructor (Spawner)
-        public OrangeSoda() //constructor
-        {
-            Name = "Orange Soda"; //does NOT have a get/set 
-
-            Price = 0.60; //has a get/set
+        public double Price
+        { 
+            get 
+            {
+                return price;
+            }
         }
+        //Constructor (Spawner)
 
         //Member Methods (Can Do)
     }

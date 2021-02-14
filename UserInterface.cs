@@ -36,13 +36,13 @@ namespace SodaMachine
         }
         //Method for getting user input for the selected coin.
         //Uses a tuple to help group valadation boolean and normalized selection name.
-        public static string CoinSelection(Can selectedCan, List<Coin> paymnet)
+        public static string CoinSelection(Can selectedCan, List<Coin> payment)
         {
             Tuple<bool, string> validatedSelection;
             do
             {
                 DisplayCost(selectedCan);
-                DiplayTotalValueOfCoins(paymnet);
+                DiplayTotalValueOfCoins(payment);
                 Console.WriteLine("\n");
                 Console.WriteLine("Enter -1- for Quarter");
                 Console.WriteLine("Enter -2- for Dime");
@@ -175,13 +175,13 @@ namespace SodaMachine
             Console.Clear();
             Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost {selectedSoda.Price} \n");
         }
-        //Displays the total value of a list of coins.
+        //Displays the total worth of a list of coins.
         public static void DiplayTotalValueOfCoins(List<Coin> coinsToTotal)
         {
             double totalValue = 0;
             foreach(Coin coin in coinsToTotal)
             {
-                totalValue += coin.Value;
+                totalValue += coin.Worth;
             }
             Console.WriteLine($"You currently have ${totalValue} in hand");
         }
