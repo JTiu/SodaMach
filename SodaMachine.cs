@@ -182,7 +182,7 @@ namespace SodaMachine
         ////This is the main method for calculating the result of the transaction.
         ////It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
         //// If statements - the very first word of each statement in the comments 
-        ///// check the payment - if greater than price of soda AND the soda machine has enough change to return (check the register)
+      
         ////result - dispense the chosen soda and give change to the customer
         ////This is the method that will determine the following:
         ////If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Dispense soda, and change to the customer.
@@ -195,12 +195,19 @@ namespace SodaMachine
         //If the change cannot be made, return null.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
+            ///// check the payment - if greater than price of soda AND the soda machine has enough change to return ******(check the register)
+
+            //Takes in the total payment amount and the price of can to return the change amount.
 
 
-            //if (payment > priceOfSoda && sodaMachineRegister > changeToReturn)
-            //{
-            //    Console.WriteLine("dispenseSoda + returnChange + place soda in backpack");
-            //}
+
+
+
+
+            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) > DetermineChange(TotalCoinValue(payment), chosenSoda.Price))
+            {
+               Console.WriteLine("dispenseSoda + returnChange + place soda in backpack");
+            }
             //else if (payment > priceOfSoda && sodaMachineRegister < changeToReturn)
             //{
             //    Console.WriteLine("dispense payment back to customer");
@@ -222,36 +229,118 @@ namespace SodaMachine
 
         private List<Coin> GatherChange(double changeValue)
         {
-            List<Coin> ReturnList = new List<Coin>();
-            return ReturnList;
+           //uses same Greedy Algorithm as th
+            List<Coin> ReturnList = new List<Coin>();//Greedy Algorithm to select from list of coins
+            double remainingValue = changeValue; // greedy Algorithm subtracts from this in while loop
+            while (remainingValue > 0)
+            {
+                if (remainingValue >= .25)// remaining value diminishes by worth of coins in loop, then terminate at value of zero that remains
+                {
+                    remainingValue = remainingValue - .25;
+                    ReturnList.Add(new Quarter());
+                }
+                else if (remainingValue >= .10)
+                {
+                    remainingValue = remainingValue - .10;
+                    ReturnList.Add(new Dime());
+                }
+                else if (remainingValue >= .05)
+                {
+                    remainingValue = remainingValue - .05;
+                    ReturnList.Add(new Nickel());
+                }
+                else// could use a condition like the Q,N,D above, or just use the else
+                {
+                    remainingValue = remainingValue - .01;
+                    ReturnList.Add(new Penny());
+                }
+                
+
+            }
+
+            return ReturnList;//gives final result, leave this here, all the work done to return the list
+            //////////Console.WriteLine("This method will be the main logic for a customer to retrieve coins from their wallet.");
+            //////////Console.ReadLine();
         }
+
+
+
+
+
+
+
+
+
+
+
+    
         //Reusable method to check if the register has a coin of that name.
         //If it does have one, return true.  Else, false.
+        
+          
         private bool RegisterHasCoin(string name)
         {
-            return true;
+            //Can GetSodaFromInventory = new Cola();//ASK, Is this right? need to return a value to avoid an error message
+
+            bool coinFound = false;//going to raise flag if we find the coin.  
+            //Flag stays at False if we never find coin at the loop, 
+            //check "if" true, return true; if false, display error message
+
+            foreach (var coin in _register)//check name of soda, at if found (true) returns soda, if not, proceeds to below "if"
+                                           //this is the long way of searching, without using Linq.  I used Linq in the other mwthod to add coins to the wallet!
+            {
+                if (name == coin.Name)
+                {
+                    coinFound = true;
+                    break;
+                }
+
+            }
+            if (coinFound == false)//if not found, displays error, not found
+            {
+                UserInterface.DisplayError("no such coin in inventory");
+            }
+            return coinFound;
+
         }
         //Reusable method to return a coin from the register.
         //Returns null if no coin can be found of that name.
-        //private Coin GetCoinFromRegister(string name)
-        //{
-        //   // Coin returnCoin = new Coin();
-        //    //return returnCoin;
-        //}
+        private Coin GetCoinFromRegister(string name)
+        {
+            Coin returnCoin = _register.Find(coin => coin.Name == name);
+          _register.Remove(returnCoin);
+            return returnCoin;//could put this in watch & see reduction in count
+        }
         //Takes in the total payment amount and the price of can to return the change amount.
-       // private double DetermineChange(double totalPayment, double canPrice)
-        //{
-        //    return 6;///place holder next two lines
-        //}
-        //Takes in a list of coins to return the total worth of the coins as a double.
-        //private double TotalCoinValue(List<Coin> payment)
-        //{
-        //    return 6;///place holder next two lines
-        //}
+        private double DetermineChange(double totalPayment, double canPrice)//gotta assume at this point that customer always adds enough.  Maybe interface has a promt? chack later
+        { 
+            double changeCalculated;
+            changeCalculated = totalPayment - canPrice;
+            return changeCalculated;///place holder next two lines
+        }
+        //Takes in a list of coins to return the total worth of the coins as a double. GOOD FOR USE ABOVE in the transaction
+        private double TotalCoinValue(List<Coin> payment)//payment is the price of the can, and a loop will add worth of coint to worth of coin, 
+            //FOR EACH LOOP good here FOR EACH COIN in payment, add to total until goal achieved
+            //until that paymentvalue/worth equals or is greater than cost of the soda.
+        {
+            double totalWorth = 0;
+            foreach (var coin in payment)
+            {
+                totalWorth += coin.Worth; //+= function rather than complete addition statement; 
+                //gonna have a list of things, going thru the list, adding the value of each item until list is complete
+            }
+
+            return totalWorth;///place holder next two lines
+        }
         //Puts a list of coins into the soda machines register.
-        //private void DepositCoinsIntoRegister(List<Coin> coins)
-        //{
-           
-        //}
+        private void DepositCoinsIntoRegister(List<Coin> coins)
+        {
+            //_register = List<>Coins. Add specific coins from the customer into the existing list of coin held in the SM regiaster.
+            //Not adding the worth of the coins, insteead adding to the LIST of coins
+            foreach (var coinFromCustomer in coins)//want to add it to the register
+            {
+                _register.Add(coinFromCustomer);
+            }
+        }
     }
 }
