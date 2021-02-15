@@ -7,30 +7,36 @@ using System.Threading.Tasks;
 namespace SodaMachine
 {
     class SodaMachine
-    {//	Coins: 20 quarters, 10 dimes, 20 nickels, 50 pennies
-     //Cans(you pick how many of each the machine starts with) : 
-        //Root Beer(60 cents per can), Cola(35 cents per can), and Orange(6 cents per can)
+    { 
+    //////////////////////Coins: 20 quarters, 10 dimes, 20 nickels, 50 pennies
+    //////////////////////Cans: programmer discretion of can inventory 
+    //////////////////////Root Beer(60 cents per can), Cola(35 cents per can), and Orange(6 cents per can)
 
         //Member Variables (Has A)
-        private List<Coin> _register; //_field is read only, locked// this list of coins is useful for the Fill Register method,
-        // no need to create now list of coins when _register exists
-        private List<Can> _inventory;//_field is read only
-        public double balanceQuarter_register; //used to check coins in register?
+
+        private List<Coin> _register; //_field is read only, locked// this list of coins is useful for the Fill Register method
+        
+        private List<Can> _inventory;  //_inventoryis read only
+        public double balanceQuarter_register; //I use these next methods to check coins in the register
         public double balanceDime_register;
         public double balanceNickel_register;
         public double balancePenny_register;
-        public double hasOrangeSoda_inventory;
-        public double hasRootBeer_inventory;
-        public double hasCola_inventory;
+        //////////////////////////public double hasOrangeSoda_inventory;
+        //////////////////////////public double hasRootBeer_inventory;
+        //////////////////////////public double hasCola_inventory;
+        ///
         //Constructor (Spawner)
+
+
         public SodaMachine()
         {
+            Console.WriteLine("SodaMachine construction begins here");
+            Console.ReadLine();
+
             _register = new List<Coin>();
             _inventory = new List<Can>();
-            Console.WriteLine("SodaMachine constructed here");
-         
-            
-            Console.ReadLine();
+          
+
             FillRegister();//void
             FillInventory();//void
             this.balanceQuarter_register = 0; //added, try check balance
@@ -267,7 +273,8 @@ namespace SodaMachine
 
 
 
-
+       // Console.WriteLine("SodaMachine ends here here");
+         
 
 
 

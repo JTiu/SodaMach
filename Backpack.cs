@@ -14,7 +14,7 @@ namespace SodaMachine
         public Backpack()
         {
             cans = new List<Can>();
-            Console.WriteLine("Backpack here");
+            Console.WriteLine("Customer creates the Backpack here");
             Console.ReadLine();
         }
 

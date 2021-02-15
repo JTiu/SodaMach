@@ -25,7 +25,7 @@ namespace SodaMachine
         {
             this.totalBalanceCoins = 0;//added, checks balance in wallet with console write line after coins fill
 
-            Console.WriteLine("Wallet added here");
+            Console.WriteLine("The Customer starts building the Wallet here");
             Console.ReadLine();
 
             FillWallet();//void method
@@ -42,15 +42,15 @@ namespace SodaMachine
 
         public void CheckWalletBalance() //displays total worth in decimals
         {
-            Console.WriteLine($"this is the amount, ${totalBalanceCoins}, in your wallet");
+            Console.WriteLine($"You now have ${totalBalanceCoins} in your wallet");
             Console.ReadLine();
         }
 
         private void FillWallet()// loops for coins//Fills wallet with starting money
         {
             CheckWalletBalance();
-            Console.WriteLine("Start filling wallet" +
-                " with coins here ");
+            Console.WriteLine("");
+            Console.WriteLine("The Customer then fills the wallet with coins ");
             Console.ReadLine();
 
             for (int i = 0; i < 12; i++)//adds twelve quarters = $3.  
