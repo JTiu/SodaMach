@@ -16,7 +16,7 @@ namespace SodaMachine
 
         private List<Coin> _register; //_field is read only, locked// this list of coins is useful for the Fill Register method
         
-        private List<Can> _inventory;  //_inventoryis read only
+        private List<Can> _inventory;  //_inventory is read only
         public double balanceQuarter_register; //I use these next methods to check coins in the register
         public double balanceDime_register;
         public double balanceNickel_register;
@@ -26,7 +26,7 @@ namespace SodaMachine
         //////////////////////////public double hasCola_inventory;
         ///
         //Constructor (Spawner)
-
+        public string error;
         //Constructor 
         public SodaMachine()
         {
@@ -36,28 +36,30 @@ namespace SodaMachine
             _register = new List<Coin>();
             _inventory = new List<Can>();
 
+            List<Can> SodaOptions = new List<Can>();
             List<Coin> testPayment = new List<Coin>(); //Key to calling this method, need instances of objects to call the method within the class
-            //for (int i = 0; i < 1; i++)
-            //{
-            //   Quarter testQuarter = new Quarter(); /// will create 3 Q's to create payment
-            //    testPayment.Add(testQuarter);/// for loop includes a function to add q's to test payment for testing the functions below.  now test payment = 75cent
-            //}
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 1; i++)
             {
-                Penny testPenny = new Penny(); //use this to test purchase of Orange
-                testPayment.Add(testPenny); // run 6 cents
+                Quarter testQuarter = new Quarter(); /// will create 3 Q's to create payment
+                testPayment.Add(testQuarter);/// for loop includes a function to add q's to test payment for testing the functions below.  now test payment = 75cent
             }
-            
-            
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Penny testPenny = new Penny(); //use this to test purchase of Orange
+            //    testPayment.Add(testPenny); // run 6 cents
+            //}
+
+
             Customer testCustomer = new Customer(); //Key to calling this method
             //Can testCan = new RootBeer();//Key cannot make an abstract can, must make an instance to test some of the logic.  Need an Orange can to test exact change logic
             Can testCan = new OrangeSoda();
-            FillRegister();//void AND this is a good place to turn off the fill register function
-            FillInventory();//void
+           // FillRegister();//void AND this is a good place to turn off the fill register function
+            FillInventory();//void this is a GREAT PLACE to turn off inventory to check tranaction logic involving the insufficient inventory.
             this.balanceQuarter_register = 0; //added, try check balance
             this.balanceDime_register = 0;
             this.balanceNickel_register = 0;
             this.balanceNickel_register = 0;
+            BeginTransaction(testCustomer);
             CalculateTransaction(testPayment, testCan , testCustomer);
             //GetSodaFromInventory("Cola");//only for testing the method
             //GetCoinFromRegister("Quarter");tests method
@@ -133,13 +135,13 @@ namespace SodaMachine
             for (int i = 0; i < 2; i++)
             {
                 Cola inventoryCola = new Cola();
-                _inventory.Add(inventoryCola);
+                _inventory.Add(inventoryCola);//put these on watch list
                 Console.WriteLine($"{ inventoryCola.Name} added to inventory");
             }
             for (int i = 0; i < 2; i++)
             {
                 OrangeSoda inventoryOrangeSoda = new OrangeSoda();
-                _inventory.Add(inventoryOrangeSoda);
+                _inventory.Add(inventoryOrangeSoda); // put his on watch list
                 Console.WriteLine($"{inventoryOrangeSoda.Name} added to inventory");
             }
             for (int i = 0; i < 2; i++)
@@ -170,7 +172,7 @@ namespace SodaMachine
         {
             Console.WriteLine("Prompt for soda");
             Console.ReadLine();
-
+            UserInterface.SodaSelection(_inventory);
         }
         
         private Can GetSodaFromInventory(string nameOfSoda)//Gets a soda from the inventory based on the name of the soda.
@@ -182,7 +184,7 @@ namespace SodaMachine
             //check "if" true, return can, if false, display error message
 
             foreach (var can in _inventory)//check name of soda, at if found (true) returns soda, if not, proceeds to below "if"
-                //this is the long way of searching, without using Linq.  I used Linq in the other mwthod to add coins to the wallet!
+                //this is the long way of searching, without using Linq.  I used Linq in the other method to add coins to the wallet!
             {
                 if (nameOfSoda == can.Name)
                 {
@@ -203,17 +205,15 @@ namespace SodaMachine
 
         ////This is the main method for calculating the result of the transaction.
         ////It takes in the payment from the customer, the soda object they selected, and the customer who is purchasing the soda.
-        //// If statements - the very first word of each statement in the comments 
-      
+        //// If statements - the very first word of each statement in the comments       
         ////result - dispense the chosen soda and give change to the customer
-        ////This is the method that will determine the following:
         ////If the payment is greater than the price of the soda, and if the sodamachine has enough change to return: Dispense soda, and change to the customer.
-        ////If the payment is greater than the cost of the soda, but the machine does not have ample change: Dispense payment back to the customer.
+        ////If the payment is greater than the cost of the soda, but the machine does not have enough change: Return payment to the customer.
         ////If the payment is exact to the cost of the soda:  Dispense soda.
-        ////If the payment does not meet the cost of the soda: dispense payment back to the customer.
+        ////If the payment does not meet the cost of the soda: return payment to the customer.
         //Takes in the worth of the amount of change needed.
         //Attempts to gather all the required coins from the sodamachine's register to make change.
-        //Returns the list of coins as change to despense.
+        //Returns the list of coins as change to dispense.
         //If the change cannot be made, return null.
         private void CalculateTransaction(List<Coin> payment, Can chosenSoda, Customer customer)
         {
@@ -228,26 +228,32 @@ namespace SodaMachine
             }
             else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < DetermineChange(TotalCoinValue(payment), chosenSoda.Price)) //simple test: turn off the register
             {
+                UserInterface.DisplayError(error);
                 Console.WriteLine("Not enough money to dispense Change. Customer: Do not Damage Machine. Return payment to Customer");
             }
             else if (TotalCoinValue(payment) == chosenSoda.Price) //make both sides of equation a double when an operand error tells me they are not able to be compared; test this with exact payment
             {
-              Console.WriteLine("dispense soda, exact payment(see adjusted price for orange soda!) + place soda in backpack"); //had to switch the orange soda value to accommodate cost = payment test case 
+                Console.WriteLine("dispense soda, exact payment(see adjusted price for orange soda!) + place soda in backpack"); //had to switch the orange soda value to accommodate cost = payment test case 
             }
             else if (TotalCoinValue(payment) < chosenSoda.Price) //test with smaller payment than the chosen soda.  Test switch as 6 pennies for payment, check the watch list// never hits this test case because decimal point on double makes payment +
             {
-                Console.WriteLine("dispense payment back to customer");
+                Console.WriteLine("Not enough payment: return payment to Customer");
             }
-            //else if (payment < priceOfSoda && inventoryNotSufficient)
+            //if (true) ////this method works only if the above cases are commented out
             //{
-            //    Console.WriteLine("dispense payment back to customer");
+            //    _inventory = null;
+            //    Console.WriteLine("Sorry, we forgot to fill the soda machine");
+            //}
+           //else if /*(TotalCoinValue(payment) < chosenSoda.Price /*&& /*inventoryNotSufficient) ; //test against inventory; test works if the inventory is not full
+            //{
+            //    Console.WriteLine("inventory not sufficient");
             //}
 
         }
 
         private List<Coin> GatherChange(double changeValue)
         {
-           //uses same Greedy Algorithm as th
+           //uses same Greedy Algorithm
             List<Coin> ReturnList = new List<Coin>();//Greedy Algorithm to select from list of coins
             double remainingValue = changeValue; // greedy Algorithm subtracts from this in while loop
             while (remainingValue > 0)
@@ -273,7 +279,6 @@ namespace SodaMachine
                     ReturnList.Add(new Penny());
                 }
                 
-
             }
 
             return ReturnList;//gives final result, leave this here, all the work done to return the list
@@ -281,18 +286,9 @@ namespace SodaMachine
             //////////Console.ReadLine();
         }
 
-
-
-
-
        // Console.WriteLine("SodaMachine ends here here");
          
-
-
-
-
-
-    
+            
         //Reusable method to check if the register has a coin of that name.
         //If it does have one, return true.  Else, false.
         

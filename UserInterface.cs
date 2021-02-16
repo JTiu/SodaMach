@@ -8,7 +8,7 @@ namespace SodaMachine
 {
     static class UserInterface
     {
-        //Intro message that asks user if they wish to make a purchase
+        //Intro message that asks user if they wish to make a purchase.  Incorporated in "Begin Trx"
         public static bool DisplayWelcomeInstructions(List<Can> sodaOptions)
         {
             OutputText("\nWelcome to the soda machine.  We only take coins as payment \n");
@@ -30,7 +30,7 @@ namespace SodaMachine
         //For printing out an error message for user to see.  Has built in console clear
         public static void DisplayError(string error)
         {
-            Console.WriteLine(error);
+            Console.WriteLine("Error");
             Console.ReadLine();
             Console.Clear();
         }
@@ -191,7 +191,8 @@ namespace SodaMachine
             Console.WriteLine($"Enjoy your {sodaName}.");
             if(changeAmount > 0)
             {
-                Console.WriteLine($"Despensing ${changeAmount}");
+                Console.WriteLine($"Returning" +
+                    $" ${changeAmount}");
             }
             Console.ReadLine();
         }
