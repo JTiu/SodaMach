@@ -27,7 +27,7 @@ namespace SodaMachine
         ///
         //Constructor (Spawner)
 
-
+        //Constructor 
         public SodaMachine()
         {
             Console.WriteLine("SodaMachine construction begins here");
@@ -35,16 +35,32 @@ namespace SodaMachine
 
             _register = new List<Coin>();
             _inventory = new List<Can>();
-          
 
-            FillRegister();//void
+            List<Coin> testPayment = new List<Coin>(); //Key to calling this method, need instances of objects to call the method within the class
+            //for (int i = 0; i < 1; i++)
+            //{
+            //   Quarter testQuarter = new Quarter(); /// will create 3 Q's to create payment
+            //    testPayment.Add(testQuarter);/// for loop includes a function to add q's to test payment for testing the functions below.  now test payment = 75cent
+            //}
+            for (int i = 0; i < 6; i++)
+            {
+                Penny testPenny = new Penny(); //use this to test purchase of Orange
+                testPayment.Add(testPenny); // run 6 cents
+            }
+            
+            
+            Customer testCustomer = new Customer(); //Key to calling this method
+            //Can testCan = new RootBeer();//Key cannot make an abstract can, must make an instance to test some of the logic.  Need an Orange can to test exact change logic
+            Can testCan = new OrangeSoda();
+            FillRegister();//void AND this is a good place to turn off the fill register function
             FillInventory();//void
             this.balanceQuarter_register = 0; //added, try check balance
             this.balanceDime_register = 0;
             this.balanceNickel_register = 0;
             this.balanceNickel_register = 0;
+            CalculateTransaction(testPayment, testCan , testCustomer);
             //GetSodaFromInventory("Cola");//only for testing the method
-            
+            //GetCoinFromRegister("Quarter");tests method
         }
 
         //Member Methods (Can Do)
@@ -206,26 +222,22 @@ namespace SodaMachine
             //Takes in the total payment amount and the price of can to return the change amount.
 
 
-
-
-
-
-            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) > DetermineChange(TotalCoinValue(payment), chosenSoda.Price))
+            if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) > DetermineChange(TotalCoinValue(payment), chosenSoda.Price))//disable/able breakpoint here.  add TCV(Payment) to the watchlist
             {
-               Console.WriteLine("dispenseSoda + returnChange + place soda in backpack");
+                Console.WriteLine("dispenseSoda + returnChange + place soda in backpack");
             }
-            //else if (payment > priceOfSoda && sodaMachineRegister < changeToReturn)
-            //{
-            //    Console.WriteLine("dispense payment back to customer");
-            //}
-            //else if (payment == priceOfSoda)
-            //{
-            //    Console.WriteLine("dispense soda + place soda in backpack");
-            //}
-            //else if (payment < priceOfSoda)
-            //{
-            //    Console.WriteLine("dispense payment back to customer");
-            //}
+            else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < DetermineChange(TotalCoinValue(payment), chosenSoda.Price)) //simple test: turn off the register
+            {
+                Console.WriteLine("Not enough money to dispense Change. Customer: Do not Damage Machine. Return payment to Customer");
+            }
+            else if (TotalCoinValue(payment) == chosenSoda.Price) //make both sides of equation a double when an operand error tells me they are not able to be compared; test this with exact payment
+            {
+              Console.WriteLine("dispense soda, exact payment(see adjusted price for orange soda!) + place soda in backpack"); //had to switch the orange soda value to accommodate cost = payment test case 
+            }
+            else if (TotalCoinValue(payment) < chosenSoda.Price) //test with smaller payment than the chosen soda.  Test switch as 6 pennies for payment, check the watch list// never hits this test case because decimal point on double makes payment +
+            {
+                Console.WriteLine("dispense payment back to customer");
+            }
             //else if (payment < priceOfSoda && inventoryNotSufficient)
             //{
             //    Console.WriteLine("dispense payment back to customer");
