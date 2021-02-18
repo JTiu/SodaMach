@@ -16,12 +16,12 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Simulation()
         {
-            Console.WriteLine("Enter the Simulation:  Create a Customer & a SodaMachine");
-            Console.ReadLine();
+            //Console.WriteLine("Enter the Simulation:  Create a Customer & a SodaMachine");
+            //Console.ReadLine();
             _customer = new Customer();
             _sodaMachine = new SodaMachine();
-            Console.WriteLine("The Simulation is complete");
-            Console.ReadLine();
+            //Console.WriteLine("The Simulation is complete");
+            //Console.ReadLine();
             
         }
 
@@ -34,8 +34,8 @@ namespace SodaMachine
                 _sodaMachine.BeginTransaction(_customer);
                 willProceed = UserInterface.ContinuePrompt("Continue to next transaction?");
                 Console.Clear();
-                Console.WriteLine("Simulate Method caleed here");
-                Console.ReadLine();
+                //Console.WriteLine("Simulate Method called here");
+                //Console.ReadLine();
             }
            
         }

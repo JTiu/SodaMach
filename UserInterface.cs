@@ -9,13 +9,13 @@ namespace SodaMachine
     static class UserInterface
     {
         //Intro message that asks user if they wish to make a purchase.  Incorporated in "Begin Trx"
-        public static bool DisplayWelcomeInstructions(List<Can> sodaOptions)
+        public static bool DisplayWelcomeInstructions(List<Can> sodaOptions)//used
         {
-            OutputText("\nWelcome to the soda machine.  We only take coins as payment \n");
+            OutputText("\nWelcome to JT's soda machine.  We only take coins as payment. (U-I method, added to S/M Class, at line 152) \n");
             OutputText("At a glance, these are the drink options:\n");
             PrintOptions(sodaOptions);
             bool willProceed = ContinuePrompt("\nWould you like to make a purchase? (y/n)");
-            if (willProceed == true)
+            if (willProceed == true)//need y/n logic
             {
                 Console.Clear();
                 return true;
@@ -30,7 +30,7 @@ namespace SodaMachine
         //For printing out an error message for user to see.  Has built in console clear
         public static void DisplayError(string error)
         {
-            Console.WriteLine("Error");
+            Console.WriteLine($"Error:  {error}");
             Console.ReadLine();
             Console.Clear();
         }
@@ -48,8 +48,8 @@ namespace SodaMachine
                 Console.WriteLine("Enter -2- for Dime");
                 Console.WriteLine("Enter -3- for Nickel");
                 Console.WriteLine("Enter -4- for Penny");
-                Console.WriteLine("Enter -5- when finishd to deposit payment");
-                int.TryParse(Console.ReadLine(), out int selection);
+                Console.WriteLine("Enter -5- when finished to deposit payment");
+                int.TryParse(Console.ReadLine(), out int selection);//takes consoleRL, turns input to int.
                 validatedSelection = ValidateCoinChoice(selection);
                
             }
@@ -121,7 +121,7 @@ namespace SodaMachine
             int selection;
             do
             {
-                Console.WriteLine("\nPlease choose from the following.");
+                Console.WriteLine("\nPlease choose from the following. U/I, added at S/M, at line 165");
                 for (int i = 0; i < uniqueCans.Count; i++)
                 {
                     Console.WriteLine($"\n\tEnter -{i + 1}- for {uniqueCans[i].Name} : ${uniqueCans[i].Price}");
@@ -138,6 +138,8 @@ namespace SodaMachine
         {
             if(input >= 0 && input <= uniqueCans.Count)
             {
+                Console.WriteLine("Validated selection");
+                Console.ReadLine();
                 return Tuple.Create(true, uniqueCans[input-1].Name);
             }
             else
@@ -173,7 +175,7 @@ namespace SodaMachine
         public static void DisplayCost(Can selectedSoda)
         {
             Console.Clear();
-            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost {selectedSoda.Price} \n");
+            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost ${selectedSoda.Price} \n");
         }
         //Displays the total worth of a list of coins.
         public static void DiplayTotalValueOfCoins(List<Coin> coinsToTotal)
@@ -196,5 +198,15 @@ namespace SodaMachine
             }
             Console.ReadLine();
         }
+
+        public static void EndProgram() 
+        {
+            OutputText("Closing program");//output is same as CRL
+            Console.ReadLine();
+        }
+
+
+
+
     }
 }

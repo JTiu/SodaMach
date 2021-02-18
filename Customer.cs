@@ -20,12 +20,12 @@ namespace SodaMachine
 
         public Customer()
         {
-           Console.WriteLine("The Customer needs a 'Wallet' & a 'Backpack'");
-            Console.WriteLine("");
+           //Console.WriteLine("The Customer needs a 'Wallet' & a 'Backpack'");
+           // Console.WriteLine("");
              Wallet = new Wallet();// Has
              Backpack = new Backpack();//Has
-             Console.WriteLine("Customer now has a wallet (with coins), & a backpack");
-             Console.ReadLine();
+             //Console.WriteLine("Customer now has a wallet (with coins), & a backpack");
+             //Console.ReadLine();
 
             // AddCanToBackpack(new Cola()); checks the backpack for inclusion of cola object, use/ add to watch, check "this"
             //AddCoinsIntoWallet(List<Coin> coinsToAdd), create list of coins, add coins to the list, use the add to watch, then use breakpoints
@@ -45,15 +45,15 @@ namespace SodaMachine
             {
                 Wallet.Coins.Add(coin);
             }
-            Console.WriteLine("Customer CAN DO: 1. Add coins to the wallet.");
-            Console.ReadLine();
+            //Console.WriteLine("Customer CAN DO: 1. Add coins to the wallet.");
+           // Console.ReadLine();
         }
 
 
         public Coin GetCoinFromWallet(string coinName)
         {
-            Console.WriteLine("Customer CAN DO: 2. Get coins from the wallet.");
-            Console.ReadLine();
+            //Console.WriteLine("Customer CAN DO: 2. Get coins from the wallet.");
+            //Console.ReadLine();
             Coin returnCoin = Wallet.Coins.Find(coin => coin.Name == coinName);
             Wallet.Coins.Remove(returnCoin);
             return returnCoin;
@@ -64,8 +64,8 @@ namespace SodaMachine
 
         public List<Coin> GatherCoinsFromWallet(Can selectedCan)
         {
-            Console.WriteLine("Customer CAN DO: 3. Gather coins from the wallet.");
-            Console.ReadLine();
+           // Console.WriteLine("Customer CAN DO: 3. Gather coins from the wallet.");
+            //Console.ReadLine();
             //////////////'Selected can' for price reference
            //////////////This method will return a list of coin objects that the customer will use a payment for their soda
 
@@ -109,8 +109,8 @@ namespace SodaMachine
         {
             //CheckStep();
             Backpack.cans.Add(purchasedCan); //Backpack, variable, can<List of>, Add function Purchased can accepted in parenthesis
-            Console.WriteLine("Customer CAN DO: 4. Add purchased soda to backpack.");
-            Console.ReadLine();
+           // Console.WriteLine("Customer CAN DO: 4. Add purchased soda to backpack.");
+            //Console.ReadLine();
         }
     }
 }
