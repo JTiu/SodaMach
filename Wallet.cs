@@ -42,8 +42,8 @@ namespace SodaMachine
 
         public void CheckWalletBalance() //displays total worth in decimals
         {
-            //Console.WriteLine($"You now have ${totalBalanceCoins} in your wallet");
-            //Console.ReadLine();
+            Console.WriteLine($"Wallet Balance here: ${totalBalanceCoins}");
+            Console.ReadLine();
         }
 
         private void FillWallet()// loops for coins//Fills wallet with starting money
@@ -74,7 +74,7 @@ namespace SodaMachine
                 Penny pennyInWallet = new Penny();//adds fifty pennies
                 AddCoinToWallet(pennyInWallet);
             }
-            //CheckWalletBalance(); //displays balance
+            CheckWalletBalance(); //displays balance
 
         }
     }

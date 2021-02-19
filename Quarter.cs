@@ -14,7 +14,7 @@ namespace SodaMachine
         {
             Name = "Quarter";//Name, no lock on the box
 
-            Worth = .25;//Worth, has a wrench
+            worth = .25;//Worth, has a wrench
         }
 
 

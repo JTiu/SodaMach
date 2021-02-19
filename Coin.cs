@@ -9,13 +9,13 @@ namespace SodaMachine
     abstract class Coin //Parent
     {
         public string Name;//control FK to align curly brackets
-        private double worth;//worth has lock on the box
+        protected double worth;//worth has lock on the box
 
         public double Worth //Worth has a wrench
         {
             get { return worth;}//lock on the box
 
-            set {worth = value; }//lock on the box
+            //set {worth = value; }//lock on the box not used, as this is read only
            
         }
         

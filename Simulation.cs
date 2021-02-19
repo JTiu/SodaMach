@@ -16,12 +16,13 @@ namespace SodaMachine
         //Constructor (Spawner)
         public Simulation()
         {
-            //Console.WriteLine("Enter the Simulation:  Create a Customer & a SodaMachine");
-            //Console.ReadLine();
+            Console.WriteLine("Enter the Simulation:  Create a Customer & a SodaMachine");
+            Console.ReadLine();
             _customer = new Customer();
             _sodaMachine = new SodaMachine();
-            //Console.WriteLine("The Simulation is complete");
-            //Console.ReadLine();
+            Simulate();
+            Console.WriteLine("The Simulation is complete");
+            Console.ReadLine();
             
         }
 

@@ -17,7 +17,7 @@ namespace SodaMachine
 
             Name = "Penny";//no lock on the box
 
-            Worth = .01;//has a wrench
+            worth = .01;//has a wrench
 
         }
         //Member Methods (Can Do)

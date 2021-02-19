@@ -14,7 +14,7 @@ namespace SodaMachine
         public Dime()
         {
             Name = "Dime";// no lock on the box
-            Worth = .10;//Worth has a wrench
+            worth = .10;//Worth has a wrench
         }
 
         //Member Methods (Can Do)

@@ -24,8 +24,8 @@ namespace SodaMachine
       
         public SodaMachine()
         {
-            //Console.WriteLine("SodaMachine construction begins here");
-            //Console.ReadLine();
+            Console.WriteLine("SodaMachine construction begins here");
+            Console.ReadLine();
 
             _register = new List<Coin>();
             _inventory = new List<Can>();
@@ -44,17 +44,17 @@ namespace SodaMachine
             //}
 
 
-            Customer testCustomer = new Customer(); //Key to calling this method
+            //Customer testCustomer = new Customer(); //Key to calling this method
             //Can testCan = new RootBeer();//Key cannot make an abstract can, must make an instance to test some of the logic.  Need an Orange can to test exact change logic
             Can testCan = new OrangeSoda();
             FillRegister();//void AND this is a good place to turn off the fill register function
             FillInventory();//void this is a GREAT PLACE to turn off inventory to check tranaction logic involving the insufficient inventory.
-            this.balanceQuarter_register = 0; //added, try check balance
-            this.balanceDime_register = 0;
-            this.balanceNickel_register = 0;
-            this.balanceNickel_register = 0;
-            BeginTransaction(testCustomer);
-            CalculateTransaction(testPayment, testCan , testCustomer);
+            //this.balanceQuarter_register = 0; //added, try check balance
+            //this.balanceDime_register = 0;
+            //this.balanceNickel_register = 0;
+            //this.balanceNickel_register = 0;
+            //BeginTransaction(testCustomer);
+           //CalculateTransaction(testPayment, testCan , testCustomer);
             //GetSodaFromInventory("Cola");//only for testing the method
             //GetCoinFromRegister("Quarter");tests method
         }
@@ -78,8 +78,7 @@ namespace SodaMachine
                 this.balanceQuarter_register += registerQuarter.Worth;
                 if (i == 19)
                 {
-                   //Console.WriteLine($"This is the amount, ${balanceQuarter_register}, of quarters in your register");
-                    
+                   Console.WriteLine($"This is the amount, ${balanceQuarter_register}, of quarters in your register");
                 }
                 
             }
@@ -90,8 +89,7 @@ namespace SodaMachine
                 this.balanceDime_register += registerDime.Worth;
                 if (i == 9)
                 {
-                       // Console.WriteLine($"This is the amount, ${balanceDime_register}, of dimes in your register");
-                      
+                       Console.WriteLine($"This is the amount, ${balanceDime_register}, of dimes in your register");
                 }
             }
             for (int i = 0; i < 20; i++)
@@ -101,7 +99,7 @@ namespace SodaMachine
                 this.balanceNickel_register += registerNickel.Worth;
                 if (i == 19)
                 {
-                   //Console.WriteLine($"This is the amount, ${balanceNickel_register}, of nickels in your register");
+                   Console.WriteLine($"This is the amount, ${balanceNickel_register}, of nickels in your register");
                 }
             }
             for (int i = 0; i < 50; i++)
@@ -111,12 +109,12 @@ namespace SodaMachine
                 this.balancePenny_register += registerPenny.Worth;
                 if (i == 49)
                 {
-                    //Console.WriteLine($"This is the amount, ${balancePenny_register}, of pennies in your register");
-                    //Console.ReadLine();
+                    Console.WriteLine($"This is the amount, ${balancePenny_register}, of pennies in your register");
+                    Console.WriteLine("");
                 }
             }
-            //Console.WriteLine("All coins now added to Register");
-            //Console.ReadLine();
+            Console.WriteLine("All coins now added to Register");
+            Console.ReadLine();
         }
         
         public void FillInventory()//Cans(you pick how many of each the machine starts with) : 
@@ -128,23 +126,23 @@ namespace SodaMachine
             {
                 Cola inventoryCola = new Cola();
                 _inventory.Add(inventoryCola);//put these on watch list
-                //Console.WriteLine($"{ inventoryCola.Name} added to inventory");
+                Console.WriteLine($"{ inventoryCola.Name} added to inventory");
             }
             for (int i = 0; i < 2; i++)
             {
                 OrangeSoda inventoryOrangeSoda = new OrangeSoda();
                 _inventory.Add(inventoryOrangeSoda); // put his on watch list
-                //Console.WriteLine($"{inventoryOrangeSoda.Name} added to inventory");
+                Console.WriteLine($"{inventoryOrangeSoda.Name} added to inventory");
             }
             for (int i = 0; i < 2; i++)
             {
                 RootBeer inventoryRootBeer = new RootBeer();
                 _inventory.Add(inventoryRootBeer);
-                //Console.WriteLine($"{inventoryRootBeer.Name} added to inventory");
+                Console.WriteLine($"{inventoryRootBeer.Name} added to inventory");
             }
-            //Console.WriteLine("");
-            //Console.WriteLine("All cans now added to Inventory");
-            //Console.ReadLine();
+            Console.WriteLine("");
+            Console.WriteLine("All cans now added to Inventory");
+            Console.ReadLine();
         }
         
         public void BeginTransaction(Customer customer)//Start transaction. Takes customer passed to which ever method needs it.
@@ -169,15 +167,11 @@ namespace SodaMachine
             string selectedSodaName = UserInterface.SodaSelection(_inventory); //use string to capture value returned by cMETHOD #return method
             //_inventory.Find (soda => soda.Name == chosenSoda.Name)
             //UserInterface.DisplayCost(_inventory.Find(soda => soda.Name == selectedSodaName)); //need local variable for Linq
-            List<Coin> customerPayment = new List<Coin>();
-            UserInterface.CoinSelection((_inventory.Find(soda => soda.Name == selectedSodaName)), customer.Wallet.Coins);
-           
-
-
-
-
-
-
+            Can selectedSoda = _inventory.Find(soda => soda.Name == selectedSodaName);
+            List<Coin> customerPayment = customer.GatherCoinsFromWallet(selectedSoda);               //new List<Coin>();//hold payment
+            //need to add payment to machine.
+            //string selectedCoinName = UserInterface.CoinSelection((_inventory.Find(soda => soda.Name == selectedSodaName)), customer.Wallet.Coins);
+            CalculateTransaction(customerPayment, selectedSoda, customer);
 
             UserInterface.EndProgram();//ends program
         }
@@ -235,11 +229,16 @@ namespace SodaMachine
             }
             else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) > DetermineChange(TotalCoinValue(payment), chosenSoda.Price))//disable/able breakpoint here.  add TCV(Payment) to the watchlist
             {
-                Console.WriteLine("dispenseSoda + returnChange + place soda in backpack");
+                Console.WriteLine("dispense Soda + return Change + place soda in backpack");
+                //dispensing soda  //placing soda in backpack
+                customer.AddCanToBackpack(GetSodaFromInventory(chosenSoda.Name));
+                //returning change
+                List<Coin> change = GatherChange(DetermineChange(TotalCoinValue(payment), chosenSoda.Price)); 
+               //Give change to customer
             }
             else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < DetermineChange(TotalCoinValue(payment), chosenSoda.Price)) //simple test: turn off the register
             {
-                UserInterface.DisplayError("Notenough money to dispense Change.Customer: Do not Damage Machine.Return payment to Customer");
+                UserInterface.DisplayError("Not enough money to dispense Change.  Customer: Do not Damage Machine. Return payment to Customer");
                //Console.WriteLine("");
             }
             else if (TotalCoinValue(payment) == chosenSoda.Price) //make both sides of equation a double when an operand error tells me they are not able to be compared; test this with exact payment
@@ -251,7 +250,6 @@ namespace SodaMachine
             {
                 Console.WriteLine("Not enough payment: return payment to Customer");
             }
-                   
         }
 
         private List<Coin> GatherChange(double changeValue)

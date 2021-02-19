@@ -14,7 +14,7 @@ namespace SodaMachine
             OutputText("\nWelcome to JT's soda machine.  We only take coins as payment. (U-I method, added to S/M Class, at line 152) \n");
             OutputText("At a glance, these are the drink options:\n");
             PrintOptions(sodaOptions);
-            bool willProceed = ContinuePrompt("\nWould you like to make a purchase? (y/n)");
+            bool willProceed = ContinuePrompt("\nWould you like to make a purchase? (y/n)(End U/I display method, called prompt method)");
             if (willProceed == true)//need y/n logic
             {
                 Console.Clear();
@@ -22,7 +22,7 @@ namespace SodaMachine
             }
             else
             {
-                OutputText("Please step aside to allow another customer to make a selection");
+                OutputText("Please step aside to allow another customer to make a selection (end U/I method)");
                 return false;
             }
         
@@ -64,15 +64,23 @@ namespace SodaMachine
             switch (input)
             {
                 case 1:
+                    Console.WriteLine("Valid");
+                    Console.ReadLine();
                     Console.Clear();
                     return Tuple.Create(true, "Quarter");
                 case 2:
+                    Console.WriteLine("Valid");
+                    Console.ReadLine();
                     Console.Clear();
                     return Tuple.Create(true, "Dime");
                 case 3:
+                    Console.WriteLine("Valid");
+                    Console.ReadLine();
                     Console.Clear();
                     return Tuple.Create(true, "Nickel");
                 case 4:
+                    Console.WriteLine("Valid");
+                    Console.ReadLine();
                     Console.Clear();
                     return Tuple.Create(true, "Penny");
                 case 5:
@@ -121,7 +129,7 @@ namespace SodaMachine
             int selection;
             do
             {
-                Console.WriteLine("\nPlease choose from the following. U/I, added at S/M, at line 165");
+                Console.WriteLine("\nPlease choose from the following (U/I SodaSelection Method added at S/M, at line 165");
                 for (int i = 0; i < uniqueCans.Count; i++)
                 {
                     Console.WriteLine($"\n\tEnter -{i + 1}- for {uniqueCans[i].Name} : ${uniqueCans[i].Price}");
@@ -138,7 +146,7 @@ namespace SodaMachine
         {
             if(input >= 0 && input <= uniqueCans.Count)
             {
-                Console.WriteLine("Validated selection");
+                Console.WriteLine("Validated selection (U/I method, called within U/I ValidateSodaSelection Method)");
                 Console.ReadLine();
                 return Tuple.Create(true, uniqueCans[input-1].Name);
             }
@@ -175,7 +183,7 @@ namespace SodaMachine
         public static void DisplayCost(Can selectedSoda)
         {
             Console.Clear();
-            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost ${selectedSoda.Price} \n");
+            Console.WriteLine($"\nYou have selected {selectedSoda.Name}.  This option will cost ${selectedSoda.Price} (U/I DisplayCost Method called at S/M, Line 173, also called at U/I Method Coin selection Method, line 44) \n");
         }
         //Displays the total worth of a list of coins.
         public static void DiplayTotalValueOfCoins(List<Coin> coinsToTotal)

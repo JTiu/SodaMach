@@ -14,8 +14,8 @@ namespace SodaMachine
         public Backpack()
         {
             cans = new List<Can>();
-            //Console.WriteLine("Customer creates the Backpack here");
-            //Console.ReadLine();
+            Console.WriteLine("Customer creates the Backpack here");
+            Console.ReadLine();
         }
 
         //Member Methods (Can Do)

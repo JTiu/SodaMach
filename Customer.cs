@@ -12,28 +12,29 @@ namespace SodaMachine
         public Wallet Wallet;
         public Backpack Backpack;
         
-
         //Can selectedCan;//test
-
 
         //Constructor (Spawner)
 
         public Customer()
         {
-           //Console.WriteLine("The Customer needs a 'Wallet' & a 'Backpack'");
-           // Console.WriteLine("");
-             Wallet = new Wallet();// Has
-             Backpack = new Backpack();//Has
-             //Console.WriteLine("Customer now has a wallet (with coins), & a backpack");
-             //Console.ReadLine();
+            // Console.WriteLine("The Customer needs a 'Wallet' & a 'Backpack'");
+            //Console.WriteLine("");
+            Console.WriteLine("Customer will get a wallet (with coins), & a backpack");
+            Console.ReadLine();
+            Wallet = new Wallet();// Has
+           Backpack = new Backpack();//Has
+            
 
-            // AddCanToBackpack(new Cola()); checks the backpack for inclusion of cola object, use/ add to watch, check "this"
-            //AddCoinsIntoWallet(List<Coin> coinsToAdd), create list of coins, add coins to the list, use the add to watch, then use breakpoints
-            //AddCoinsIntoWallet(coinsToAdd);
-            //GetCoinFromWallet();
-            //GatherCoinsFromWallet();
-            //AddCanToBackpack();
+           // AddCanToBackpack(new Cola()); //checks the backpack for inclusion of cola object, use/ add to watch, check "this"
+                                          //AddCoinsIntoWallet(List<Coin> coinsToAdd)//, create list of coins, add coins to the list, use the add to watch, then use breakpoints
+                                          //AddCoinsIntoWallet(coinsToAdd);
+                                          //GetCoinFromWallet();
+                                          //GatherCoinsFromWallet();
+                                          //AddCanToBackpack();
+            
         }
+
         //Member Methods (CAN DO)
 
         //this is one way to search, but there is another, contained in the inventory search for soda in the SodaMachine Class
@@ -45,10 +46,9 @@ namespace SodaMachine
             {
                 Wallet.Coins.Add(coin);
             }
-            //Console.WriteLine("Customer CAN DO: 1. Add coins to the wallet.");
-           // Console.ReadLine();
+            Console.WriteLine("Customer CAN DO: 1. Add coins to the wallet.");
+            Console.ReadLine();
         }
-
 
         public Coin GetCoinFromWallet(string coinName)
         {
@@ -67,7 +67,7 @@ namespace SodaMachine
            // Console.WriteLine("Customer CAN DO: 3. Gather coins from the wallet.");
             //Console.ReadLine();
             //////////////'Selected can' for price reference
-           //////////////This method will return a list of coin objects that the customer will use a payment for their soda
+           //////////////This method will return a list of coin objects that the customer will use as payment for their soda
 
             List<Coin> ReturnList = new List<Coin>();    //'Greedy Algorithm' to select list of coins
             double remainingValue = selectedCan.Price;   // Greedy Algorithm subtracts from this in while loop
@@ -76,32 +76,30 @@ namespace SodaMachine
                 if (remainingValue >= .25)// remaining value diminishes by worth of coins in loop, then terminates at value of zero that remains
                 {
                     remainingValue = remainingValue - .25;
-                    ReturnList.Add(new Quarter());
+                    ReturnList.Add(GetCoinFromWallet("Quarter"));
                 }
                 else if (remainingValue >= .10)
                 {
                     remainingValue = remainingValue - .10;
-                    ReturnList.Add(new Dime());
+                    ReturnList.Add(GetCoinFromWallet("Dime"));
                 }
                 else if (remainingValue >= .05)
                 {
                     remainingValue = remainingValue - .05;
-                    ReturnList.Add(new Nickel());
+                    ReturnList.Add(GetCoinFromWallet("Nickel"));
                 }
                 else// Penny class could use a condition like the Q, N, D, above, or just use the 'else' as no other values remain
                 {
                     remainingValue = remainingValue - .01;
-                    ReturnList.Add(new Penny());
+                    ReturnList.Add(GetCoinFromWallet("Penny"));
                 }
                 //else 
                 //{//Returns a coin object from the wallet based on the name passed into it.
                 //Returns null if no coin can be found
                 //    break;//will stop any way
                 //}
-
             }
             return ReturnList;     
-          
         }        
         
         //Takes in a can object to add to the customers backpack.
@@ -109,8 +107,8 @@ namespace SodaMachine
         {
             //CheckStep();
             Backpack.cans.Add(purchasedCan); //Backpack, variable, can<List of>, Add function Purchased can accepted in parenthesis
-           // Console.WriteLine("Customer CAN DO: 4. Add purchased soda to backpack.");
-            //Console.ReadLine();
+            Console.WriteLine("Customer CAN DO: Add purchased soda to backpack.");
+            Console.ReadLine();
         }
     }
 }
