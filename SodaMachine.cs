@@ -34,6 +34,8 @@ namespace SodaMachine
             List<Coin> testPayment = new List<Coin>(); //Key to calling this method, need instances of objects to call the method within the class
             for (int i = 0; i < 1; i++)
             {
+                
+                
                 Quarter testQuarter = new Quarter(); /// will create 3 Q's to create payment
                 testPayment.Add(testQuarter);/// for loop includes a function to add q's to test payment for testing the functions below.  now test payment = 75cent
             }
@@ -43,6 +45,8 @@ namespace SodaMachine
             //    testPayment.Add(testPenny); // run 6 cents
             //}
 
+            double someNumber = 0.66677786777678;//rounding method
+            someNumber = Math.Round(someNumber, 2);
 
             //Customer testCustomer = new Customer(); //Key to calling this method
             //Can testCan = new RootBeer();//Key cannot make an abstract can, must make an instance to test some of the logic.  Need an Orange can to test exact change logic
@@ -148,14 +152,12 @@ namespace SodaMachine
         public void BeginTransaction(Customer customer)//Start transaction. Takes customer passed to which ever method needs it.
         {
             bool willProceed = UserInterface.DisplayWelcomeInstructions(_inventory);
-            if (willProceed)
+            while (willProceed)
             {
                 Transaction(customer);
+               willProceed = UserInterface.ContinuePrompt("Continue? press Y, else, press N");
             }
-            else 
-            {
-                UserInterface.EndProgram();
-            }
+            
         }
         
         //get payment from the user.
@@ -169,6 +171,8 @@ namespace SodaMachine
             //UserInterface.DisplayCost(_inventory.Find(soda => soda.Name == selectedSodaName)); //need local variable for Linq
             Can selectedSoda = _inventory.Find(soda => soda.Name == selectedSodaName);
             List<Coin> customerPayment = customer.GatherCoinsFromWallet(selectedSoda);               //new List<Coin>();//hold payment
+            customer.Wallet.CheckWalletBalance();
+            DepositCoinsIntoRegister(customerPayment);
             //need to add payment to machine.
             //string selectedCoinName = UserInterface.CoinSelection((_inventory.Find(soda => soda.Name == selectedSodaName)), customer.Wallet.Coins);
             CalculateTransaction(customerPayment, selectedSoda, customer);
@@ -220,12 +224,13 @@ namespace SodaMachine
             ///// check the payment - if greater than price of soda AND the soda machine has enough change to return ******(check the register)
 
             //Takes in the total payment amount and the price of can to return the change amount.
-            _inventory.RemoveAll(can => can.Name == "Orange Soda"); //using Linq/// test case for Orange Soda only
+            //_inventory.RemoveAll(can => can.Name == "Orange Soda"); //using Linq/// test case for Orange Soda only
             
             
             if (_inventory.Find (soda => soda.Name == chosenSoda.Name) == null) //test against inventory;  Coin returnCoin = Wallet.Coins.Find(coin => coin.Name == coinName);
             {
                 Console.WriteLine("inventory not sufficient");
+                customer.AddCoinsIntoWallet(payment);
             }
             else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) > DetermineChange(TotalCoinValue(payment), chosenSoda.Price))//disable/able breakpoint here.  add TCV(Payment) to the watchlist
             {
@@ -233,8 +238,10 @@ namespace SodaMachine
                 //dispensing soda  //placing soda in backpack
                 customer.AddCanToBackpack(GetSodaFromInventory(chosenSoda.Name));
                 //returning change
-                List<Coin> change = GatherChange(DetermineChange(TotalCoinValue(payment), chosenSoda.Price)); 
-               //Give change to customer
+                List<Coin> change = GatherChange(DetermineChange(TotalCoinValue(payment), chosenSoda.Price));
+                //Give change to customer
+                customer.AddCoinsIntoWallet(change);
+                customer.Wallet.CheckWalletBalance();
             }
             else if (TotalCoinValue(payment) > chosenSoda.Price && TotalCoinValue(_register) < DetermineChange(TotalCoinValue(payment), chosenSoda.Price)) //simple test: turn off the register
             {
@@ -339,10 +346,13 @@ namespace SodaMachine
         private void DepositCoinsIntoRegister(List<Coin> coins)
         {
             //_register = List<>Coins. Add specific coins from the customer into the existing list of coin held in the SM regiaster.
-            //Not adding the worth of the coins, insteead adding to the LIST of coins
+            //Not adding the worth of the coins, instead adding to the LIST of coins
             foreach (var coinFromCustomer in coins)//want to add it to the register
             {
                 _register.Add(coinFromCustomer);
+                Console.WriteLine($"Customer payment coin {coinFromCustomer.Name} deposited here");
+                Console.ReadLine();
+
             }
         }
     }

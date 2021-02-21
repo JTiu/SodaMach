@@ -46,7 +46,7 @@ namespace SodaMachine
             {
                 Wallet.Coins.Add(coin);
             }
-            Console.WriteLine("Customer CAN DO: 1. Add coins to the wallet.");
+            Console.WriteLine("Customer Adds coins to the wallet.");
             Console.ReadLine();
         }
 
@@ -55,6 +55,8 @@ namespace SodaMachine
             //Console.WriteLine("Customer CAN DO: 2. Get coins from the wallet.");
             //Console.ReadLine();
             Coin returnCoin = Wallet.Coins.Find(coin => coin.Name == coinName);
+            Wallet.totalBalanceCoins -= returnCoin.Worth;
+            Wallet.totalBalanceCoins = Math.Round(Wallet.totalBalanceCoins, 2);
             Wallet.Coins.Remove(returnCoin);
             return returnCoin;
 
@@ -107,7 +109,7 @@ namespace SodaMachine
         {
             //CheckStep();
             Backpack.cans.Add(purchasedCan); //Backpack, variable, can<List of>, Add function Purchased can accepted in parenthesis
-            Console.WriteLine("Customer CAN DO: Add purchased soda to backpack.");
+            Console.WriteLine("Customer Adds purchased soda to backpack.");
             Console.ReadLine();
         }
     }

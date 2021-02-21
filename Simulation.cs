@@ -29,15 +29,16 @@ namespace SodaMachine
         //Member Methods
         public void Simulate()
         {
-            bool willProceed = true;
-            while (willProceed)
-            {
-                _sodaMachine.BeginTransaction(_customer);
-                willProceed = UserInterface.ContinuePrompt("Continue to next transaction?");
-                Console.Clear();
-                //Console.WriteLine("Simulate Method called here");
-                //Console.ReadLine();
-            }
+            _sodaMachine.BeginTransaction(_customer);
+            //bool willProceed = true; //Allows Soda machine to continue to run, so that coins & cans reduce with every trx
+            //while (willProceed)
+            //{
+            //    _sodaMachine.BeginTransaction(_customer);
+            //    willProceed = UserInterface.ContinuePrompt("Continue to next transaction?");
+            //    Console.Clear();
+            //    //Console.WriteLine("Simulate Method called here");
+            //    //Console.ReadLine();
+            //}
            
         }
     }

@@ -9,7 +9,7 @@ namespace SodaMachine
     class Wallet
     {
         //Member Variables (Has A)
-        public string walletName;
+        //public string walletName;
         public double totalBalanceCoins;//used to test register
         public List<Coin> Coins = new List<Coin>(); //constructs a list
                 
@@ -37,7 +37,7 @@ namespace SodaMachine
         {
             this.Coins.Add(coin);
             this.totalBalanceCoins += coin.Worth;//excellent method to watch wallet fill
-            
+            this.totalBalanceCoins = Math.Round(totalBalanceCoins, 2);
         }
 
         public void CheckWalletBalance() //displays total worth in decimals

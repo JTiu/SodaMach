@@ -18,8 +18,6 @@ namespace SodaMachine
             //set {worth = value; }//lock on the box not used, as this is read only
            
         }
-        
-       
 
     }
 }
