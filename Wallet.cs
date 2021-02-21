@@ -10,7 +10,7 @@ namespace SodaMachine
     {
         //Member Variables (Has A)
         //public string walletName;
-        public double totalBalanceCoins;//used to test register
+        public double totalBalanceCoins;//used to test wallet
         public List<Coin> Coins = new List<Coin>(); //constructs a list
                 
         
@@ -42,7 +42,7 @@ namespace SodaMachine
 
         public void CheckWalletBalance() //displays total worth in decimals
         {
-            Console.WriteLine($"Wallet Balance here: ${totalBalanceCoins}");
+            Console.WriteLine($"The Customer wallet has a current coin balance of ${totalBalanceCoins}");
             Console.ReadLine();
         }
 

@@ -46,14 +46,14 @@ namespace SodaMachine
             {
                 Wallet.Coins.Add(coin);
             }
-            Console.WriteLine("Customer Adds coins to the wallet.");
+            Console.WriteLine("Customer adds coins to the wallet.");
             Console.ReadLine();
         }
 
         public Coin GetCoinFromWallet(string coinName)
         {
-            //Console.WriteLine("Customer CAN DO: 2. Get coins from the wallet.");
-            //Console.ReadLine();
+            Console.WriteLine("Customer gets a coin from the wallet.");
+            Console.ReadLine();
             Coin returnCoin = Wallet.Coins.Find(coin => coin.Name == coinName);
             Wallet.totalBalanceCoins -= returnCoin.Worth;
             Wallet.totalBalanceCoins = Math.Round(Wallet.totalBalanceCoins, 2);
@@ -108,8 +108,8 @@ namespace SodaMachine
         public void AddCanToBackpack(Can purchasedCan)
         {
             //CheckStep();
-            Backpack.cans.Add(purchasedCan); //Backpack, variable, can<List of>, Add function Purchased can accepted in parenthesis
-            Console.WriteLine("Customer Adds purchased soda to backpack.");
+            //Backpack.cans.Add(purchasedCan); //Backpack, variable, can<List of>, Add function Purchased can accepted in parenthesis
+            Console.WriteLine("Customer adds purchased soda to backpack.");
             Console.ReadLine();
         }
     }
